@@ -1,0 +1,30 @@
+<Configuration>
+  <UnitTestRunner>
+    <CustomStartDirectory>
+    </CustomStartDirectory>
+    <UseShadowCopy>True</UseShadowCopy>
+    <UseCustomFolder>False</UseCustomFolder>
+    <EnableUnitTesting>True</EnableUnitTesting>
+    <Providers />
+  </UnitTestRunner>
+  <RecentFiles>
+    <RecentFiles>
+      <File id="E4DF4818-A171-41E0-9AC4-4FDB8AF6482A/d:Classes/f:Renderer.cs" caret="569" scrollPosition="0|0" />
+      <File id="E4DF4818-A171-41E0-9AC4-4FDB8AF6482A/d:Classes/f:Serializer.cs" caret="0" scrollPosition="0|45" />
+      <File id="E4DF4818-A171-41E0-9AC4-4FDB8AF6482A/d:Classes/f:FitnessCalculator.cs" caret="0" scrollPosition="0|0" />
+    </RecentFiles>
+    <RecentEdits />
+  </RecentFiles>
+  <SettingsComponent>
+    <string />
+    <integer />
+    <boolean>
+      <setting name="SolutionAnalysisEnabled">False</setting>
+      <setting name="UseSolutionBuilder">False</setting>
+    </boolean>
+  </SettingsComponent>
+  <NAntValidationSettings>
+    <NAntPath value="" />
+  </NAntValidationSettings>
+  <CompletionStatisticsManager />
+</Configuration>

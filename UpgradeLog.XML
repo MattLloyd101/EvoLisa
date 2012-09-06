@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="EvoLisa">
+</Property><Property Name="Solution File" Value="E:\Downloads\EvoLisaSource\EvoLisa\EvoLisa.sln">
+</Property><Property Name="User Options File" Value="E:\Downloads\EvoLisaSource\EvoLisa\EvoLisa.suo">
+</Property><Property Name="Date" Value="04 September 2012">
+</Property><Property Name="Time" Value="15:01">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="EvoLisa.sln" Description="File successfully backed up as E:\Downloads\EvoLisaSource\EvoLisa\Backup\EvoLisa.sln">
+</Event><Event ErrorLevel="0" Project="" Source="EvoLisa.suo" Description="File successfully backed up as E:\Downloads\EvoLisaSource\EvoLisa\Backup\EvoLisa.suo">
+</Event><Event ErrorLevel="0" Project="GenArt" Source="Gui\GenArt.csproj" Description="Project file successfully backed up as E:\Downloads\EvoLisaSource\EvoLisa\Backup\Gui\GenArt.csproj">
+</Event><Event ErrorLevel="0" Project="GenArt" Source="Gui\GenArt.csproj.user" Description="Project user file successfully backed up as E:\Downloads\EvoLisaSource\EvoLisa\Backup\Gui\GenArt.csproj.user">
+</Event><Event ErrorLevel="0" Project="GenArt" Source="Gui\Canvas.cs" Description="File successfully backed up as E:\Downloads\EvoLisaSource\EvoLisa\Backup\Gui\Canvas.cs">
+</Event><Event ErrorLevel="0" Project="GenArt" Source="Gui\Canvas.Designer.cs" Description="File successfully backed up as E:\Downloads\EvoLisaSource\EvoLisa\Backup\Gui\Canvas.Designer.cs">
+</Event><Event ErrorLevel="0" Project="GenArt" Source="Gui\MainForm.cs" Description="File successfully backed up as E:\Downloads\EvoLisaSource\EvoLisa\Backup\Gui\MainForm.cs">
+</Event><Event ErrorLevel="0" Project="GenArt" Source="Gui\MainForm.Designer.cs" Description="File successfully backed up as E:\Downloads\EvoLisaSource\EvoLisa\Backup\Gui\MainForm.Designer.cs">
+</Event><Event ErrorLevel="0" Project="GenArt" Source="Gui\Program.cs" Description="File successfully backed up as E:\Downloads\EvoLisaSource\EvoLisa\Backup\Gui\Program.cs">
+</Event><Event ErrorLevel="0" Project="GenArt" Source="Gui\Properties\AssemblyInfo.cs" Description="File successfully backed up as E:\Downloads\EvoLisaSource\EvoLisa\Backup\Gui\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="GenArt" Source="Gui\Properties\Resources.Designer.cs" Description="File successfully backed up as E:\Downloads\EvoLisaSource\EvoLisa\Backup\Gui\Properties\Resources.Designer.cs">
+</Event><Event ErrorLevel="0" Project="GenArt" Source="Gui\Properties\Settings.Designer.cs" Description="File successfully backed up as E:\Downloads\EvoLisaSource\EvoLisa\Backup\Gui\Properties\Settings.Designer.cs">
+</Event><Event ErrorLevel="0" Project="GenArt" Source="Gui\SettingsForm.cs" Description="File successfully backed up as E:\Downloads\EvoLisaSource\EvoLisa\Backup\Gui\SettingsForm.cs">
+</Event><Event ErrorLevel="0" Project="GenArt" Source="Gui\SettingsForm.Designer.cs" Description="File successfully backed up as E:\Downloads\EvoLisaSource\EvoLisa\Backup\Gui\SettingsForm.Designer.cs">
+</Event><Event ErrorLevel="0" Project="GenArt" Source="Gui\Properties\Settings.settings" Description="File successfully backed up as E:\Downloads\EvoLisaSource\EvoLisa\Backup\Gui\Properties\Settings.settings">
+</Event><Event ErrorLevel="0" Project="GenArt" Source="Gui\Resources\ml.bmp" Description="File successfully backed up as E:\Downloads\EvoLisaSource\EvoLisa\Backup\Gui\Resources\ml.bmp">
+</Event><Event ErrorLevel="0" Project="GenArt" Source="Gui\Canvas.resx" Description="File successfully backed up as E:\Downloads\EvoLisaSource\EvoLisa\Backup\Gui\Canvas.resx">
+</Event><Event ErrorLevel="0" Project="GenArt" Source="Gui\MainForm.resx" Description="File successfully backed up as E:\Downloads\EvoLisaSource\EvoLisa\Backup\Gui\MainForm.resx">
+</Event><Event ErrorLevel="0" Project="GenArt" Source="Gui\Properties\Resources.resx" Description="File successfully backed up as E:\Downloads\EvoLisaSource\EvoLisa\Backup\Gui\Properties\Resources.resx">
+</Event><Event ErrorLevel="0" Project="GenArt" Source="Gui\SettingsForm.resx" Description="File successfully backed up as E:\Downloads\EvoLisaSource\EvoLisa\Backup\Gui\SettingsForm.resx">
+</Event><Event ErrorLevel="0" Project="GenArt" Source="Gui\GenArt.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="GenArt" Source="Gui\GenArt.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="GenArt.Core" Source="Core\GenArt.Core.csproj" Description="Project file successfully backed up as E:\Downloads\EvoLisaSource\EvoLisa\Backup\Core\GenArt.Core.csproj">
+</Event><Event ErrorLevel="0" Project="GenArt.Core" Source="Core\AST\DnaBrush.cs" Description="File successfully backed up as E:\Downloads\EvoLisaSource\EvoLisa\Backup\Core\AST\DnaBrush.cs">
+</Event><Event ErrorLevel="0" Project="GenArt.Core" Source="Core\AST\DnaDrawing.cs" Description="File successfully backed up as E:\Downloads\EvoLisaSource\EvoLisa\Backup\Core\AST\DnaDrawing.cs">
+</Event><Event ErrorLevel="0" Project="GenArt.Core" Source="Core\AST\DnaPoint.cs" Description="File successfully backed up as E:\Downloads\EvoLisaSource\EvoLisa\Backup\Core\AST\DnaPoint.cs">
+</Event><Event ErrorLevel="0" Project="GenArt.Core" Source="Core\AST\DnaPolygon.cs" Description="File successfully backed up as E:\Downloads\EvoLisaSource\EvoLisa\Backup\Core\AST\DnaPolygon.cs">
+</Event><Event ErrorLevel="0" Project="GenArt.Core" Source="Core\Classes\FileUtil.cs" Description="File successfully backed up as E:\Downloads\EvoLisaSource\EvoLisa\Backup\Core\Classes\FileUtil.cs">
+</Event><Event ErrorLevel="0" Project="GenArt.Core" Source="Core\Classes\FitnessCalculator.cs" Description="File successfully backed up as E:\Downloads\EvoLisaSource\EvoLisa\Backup\Core\Classes\FitnessCalculator.cs">
+</Event><Event ErrorLevel="0" Project="GenArt.Core" Source="Core\Classes\Renderer.cs" Description="File successfully backed up as E:\Downloads\EvoLisaSource\EvoLisa\Backup\Core\Classes\Renderer.cs">
+</Event><Event ErrorLevel="0" Project="GenArt.Core" Source="Core\Classes\Serializer.cs" Description="File successfully backed up as E:\Downloads\EvoLisaSource\EvoLisa\Backup\Core\Classes\Serializer.cs">
+</Event><Event ErrorLevel="0" Project="GenArt.Core" Source="Core\Classes\Settings.cs" Description="File successfully backed up as E:\Downloads\EvoLisaSource\EvoLisa\Backup\Core\Classes\Settings.cs">
+</Event><Event ErrorLevel="0" Project="GenArt.Core" Source="Core\Classes\Tools.cs" Description="File successfully backed up as E:\Downloads\EvoLisaSource\EvoLisa\Backup\Core\Classes\Tools.cs">
+</Event><Event ErrorLevel="0" Project="GenArt.Core" Source="Core\Properties\AssemblyInfo.cs" Description="File successfully backed up as E:\Downloads\EvoLisaSource\EvoLisa\Backup\Core\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="GenArt.Core" Source="Core\GenArt.Core.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="GenArt.Core" Source="Core\GenArt.Core.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="EvoLisa.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="EvoLisa.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="GenArt" Source="Gui\GenArt.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="GenArt.Core" Source="Core\GenArt.Core.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>
