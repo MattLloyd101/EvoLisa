@@ -15,8 +15,9 @@ namespace GenArt.Core.Classes
     {
         private const int SELECTED_MAX = 250;
 
-        public Evolver(Pixel[] sourceColours)
+        public Evolver(int seed, Pixel[] sourceColours)
         {
+            this.seed = seed;
             this.sourceColours = sourceColours;
         }
 
@@ -32,6 +33,7 @@ namespace GenArt.Core.Classes
         public volatile int selectedThisGeneration;
         public volatile int generation;
         public double _errorLevel = double.MaxValue;
+        private int seed;
 
         public double errorLevel
         {
@@ -48,9 +50,9 @@ namespace GenArt.Core.Classes
             get { return selectedThisGeneration / (double)SELECTED_MAX; }
         }
 
-        private static DnaDrawing GetNewInitializedDrawing()
+        private DnaDrawing GetNewInitializedDrawing()
         {
-            var drawing = new DnaDrawing();
+            var drawing = new DnaDrawing(seed);
 
             return drawing;
         }
@@ -75,7 +77,7 @@ namespace GenArt.Core.Classes
             thread = new Thread(StartEvolution)
             {
                 IsBackground = true,
-                Priority = ThreadPriority.AboveNormal
+                Priority = ThreadPriority.Highest
             };
 
             thread.Start();

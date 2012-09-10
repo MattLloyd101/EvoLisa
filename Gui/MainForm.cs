@@ -13,7 +13,8 @@ namespace GenArt
 {
     public partial class MainForm : Form
     {
-        const int EVOLVER_COUNT = 2;
+        const int EVOLVER_COUNT = 4;
+        int currIndex = 0;
 
         public static Settings Settings;
 
@@ -38,6 +39,8 @@ namespace GenArt
             Settings = Serializer.DeserializeSettings();
             if (Settings == null)
                 Settings = new Settings();
+
+            seedTxtBox.Text = new Random().Next() + "";
         }
 
         public static Pixel[] SetupSourceColorMatrix(Bitmap sourceImage)
@@ -84,9 +87,9 @@ namespace GenArt
             btnStart.Text = "Stop";
             tmrRedraw.Enabled = true;
 
-            for (; evolvers.Count < EVOLVER_COUNT;)
+            for (int i = Int32.Parse(seedTxtBox.Text); evolvers.Count < EVOLVER_COUNT; i++)
             {
-                Evolver evolver = new Evolver((Pixel[])sourceColours.Clone());
+                Evolver evolver = new Evolver(i, (Pixel[])sourceColours.Clone());
                 evolvers.Add(evolver);
             }
 
@@ -105,8 +108,7 @@ namespace GenArt
         {
             get
             {
-                evolvers.Sort();
-                return evolvers[0];
+                return evolvers[currIndex];
             }
         }
 
@@ -129,6 +131,13 @@ namespace GenArt
                 Console.WriteLine("currentDrawing fail");
                 return;
             }
+            String txt = String.Format("Current     : {0}\r\n", currIndex);
+
+            for (int i = 0; i < EVOLVER_COUNT; i++)
+            {
+                txt += String.Format("Evolver {0} : {1}\r\n", i, evolvers[i].errorLevel);
+            }
+            textBox1.Text = txt;
 
             toolStripStatusLabelFitness.Text = evolver.errorLevel.ToString();
             toolStripStatusLabelGeneration.Text = evolver.generation.ToString();
@@ -158,11 +167,16 @@ namespace GenArt
 
             if (shouldRepaint)
             {
-                guiDrawing = currentDrawing;
-                pnlCanvas.Invalidate();
-                lastRepaint = DateTime.Now;
-                lastSelected = evolver.selected;
+                redraw();
             }
+        }
+
+        private void redraw()
+        {
+            guiDrawing = currentDrawing;
+            pnlCanvas.Invalidate();
+            lastRepaint = DateTime.Now;
+            lastSelected = currentEvolver.selected;
         }
        
         private void pnlCanvas_Paint(object sender, PaintEventArgs e)
@@ -352,6 +366,20 @@ namespace GenArt
         private void MainForm_Load(object sender, EventArgs e)
         {
             DnaBrush.colours = sourceColours = SetupSourceColorMatrix(picPattern.Image as Bitmap);
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            currIndex++;
+            currIndex = Math.Min(currIndex, EVOLVER_COUNT - 1);
+            redraw();
+        }
+
+        private void btnPrev_Click(object sender, EventArgs e)
+        {
+            currIndex--;
+            currIndex = Math.Max(currIndex, 0);
+            redraw();
         }
     }
 }

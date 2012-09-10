@@ -10,6 +10,7 @@ namespace GenArt.AST
     public class DnaDrawing
     {
         private Tools tool;
+        private int seed;
         public List<DnaShape> Shapes { get; set; }
 
         [XmlIgnore]
@@ -20,9 +21,10 @@ namespace GenArt.AST
             IsDirty = true;
         }
 
-        public DnaDrawing()
+        public DnaDrawing(int seed)
         {
-            this.tool = new Tools();
+            this.seed = seed;
+            this.tool = new Tools(seed);
             Shapes = new List<DnaShape>();
             SetDirty();
         }
@@ -69,7 +71,7 @@ namespace GenArt.AST
         {
             lock (this)
             {
-                var drawing = new DnaDrawing();
+                var drawing = new DnaDrawing(seed);
                 drawing.tool = tool;
                 drawing.Shapes = new List<DnaShape>();
                 foreach (DnaShape shape in Shapes)
@@ -91,8 +93,8 @@ namespace GenArt.AST
             if (Settings.allowTinyCircles && tool.WillMutate(Settings.ActiveAddTinyCircleMutationRate))
                 AddTinyCircle();
 
-            //if (Settings.allowEllipses && tool.WillMutate(Settings.ActiveAddEllipseMutationRate))
-                //AddEllipse();
+            if (Settings.allowEllipses && tool.WillMutate(Settings.ActiveAddEllipseMutationRate))
+                AddEllipse();
 
             if (tool.WillMutate(Settings.ActiveRemoveShapeMutationRate))
                 RemoveShape();

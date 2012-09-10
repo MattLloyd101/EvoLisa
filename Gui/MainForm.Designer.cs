@@ -46,6 +46,11 @@
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.label3 = new System.Windows.Forms.Label();
+            this.seedTxtBox = new System.Windows.Forms.TextBox();
+            this.btnPrev = new System.Windows.Forms.Button();
+            this.btnNext = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.onlyTiny = new System.Windows.Forms.CheckBox();
             this.allowEllipses = new System.Windows.Forms.CheckBox();
             this.allowCircles = new System.Windows.Forms.CheckBox();
@@ -216,6 +221,11 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.label3);
+            this.splitContainer1.Panel1.Controls.Add(this.seedTxtBox);
+            this.splitContainer1.Panel1.Controls.Add(this.btnPrev);
+            this.splitContainer1.Panel1.Controls.Add(this.btnNext);
+            this.splitContainer1.Panel1.Controls.Add(this.textBox1);
             this.splitContainer1.Panel1.Controls.Add(this.onlyTiny);
             this.splitContainer1.Panel1.Controls.Add(this.allowEllipses);
             this.splitContainer1.Panel1.Controls.Add(this.allowCircles);
@@ -235,6 +245,50 @@
             this.splitContainer1.Size = new System.Drawing.Size(1072, 625);
             this.splitContainer1.SplitterDistance = 230;
             this.splitContainer1.TabIndex = 21;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(9, 317);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(32, 13);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Seed";
+            // 
+            // seedTxtBox
+            // 
+            this.seedTxtBox.Location = new System.Drawing.Point(47, 314);
+            this.seedTxtBox.Name = "seedTxtBox";
+            this.seedTxtBox.Size = new System.Drawing.Size(164, 20);
+            this.seedTxtBox.TabIndex = 32;
+            // 
+            // btnPrev
+            // 
+            this.btnPrev.Location = new System.Drawing.Point(136, 245);
+            this.btnPrev.Name = "btnPrev";
+            this.btnPrev.Size = new System.Drawing.Size(75, 23);
+            this.btnPrev.TabIndex = 31;
+            this.btnPrev.Text = "Prev Image";
+            this.btnPrev.UseVisualStyleBackColor = true;
+            this.btnPrev.Click += new System.EventHandler(this.btnPrev_Click);
+            // 
+            // btnNext
+            // 
+            this.btnNext.Location = new System.Drawing.Point(136, 222);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(75, 23);
+            this.btnNext.TabIndex = 30;
+            this.btnNext.Text = "Next Image";
+            this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(12, 340);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(200, 183);
+            this.textBox1.TabIndex = 29;
             // 
             // onlyTiny
             // 
@@ -471,6 +525,11 @@
         private System.Windows.Forms.CheckBox allowEllipses;
         private System.Windows.Forms.CheckBox onlyTiny;
         private System.Windows.Forms.ToolStripMenuItem pNGToolStripMenuItem;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button btnPrev;
+        private System.Windows.Forms.Button btnNext;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox seedTxtBox;
     }
 }
 

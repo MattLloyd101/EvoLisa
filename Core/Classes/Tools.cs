@@ -5,7 +5,8 @@ namespace GenArt.Classes
 {
     public class Tools
     {
-        public readonly Random random = new Random();
+
+        public readonly Random random;
 
         public int GetRandomNumber(int min, int max)
         {
@@ -17,10 +18,13 @@ namespace GenArt.Classes
             return min + random.NextDouble() * max;
         }
 
-
-
         public static int MaxWidth = 200;
         public static int MaxHeight = 200;
+
+        public Tools(int seed)
+        {
+            this.random = new Random(seed);
+        }
 
         public bool WillMutate(int mutationRate)
         {
