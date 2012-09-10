@@ -5,7 +5,8 @@ using System.Text;
 
 namespace GenArt.Core.AST
 {
-    class DnaPixels
+    public class DnaPixelDrawing : AbstractDnaDrawing
     {
+
     }
 }

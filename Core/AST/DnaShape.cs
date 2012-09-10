@@ -19,7 +19,7 @@ namespace GenArt.Core.AST
 
         DnaShape Clone();
 
-        void Mutate(DnaDrawing drawing);
+        void Mutate(DnaVectorDrawing drawing);
 
         void Render(Graphics g, int scale);
     }

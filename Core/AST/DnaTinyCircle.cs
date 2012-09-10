@@ -25,7 +25,7 @@ namespace GenArt.Core.AST
             rotation = 0;
         }
 
-        new public void Mutate(DnaDrawing drawing)
+        new public void Mutate(DnaVectorDrawing drawing)
         {
             Brush.Mutate(drawing);
 

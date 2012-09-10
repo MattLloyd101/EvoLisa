@@ -83,7 +83,7 @@ namespace GenArt.AST
             return newPolygon;
         }
 
-        public void Mutate(DnaDrawing drawing)
+        public void Mutate(DnaVectorDrawing drawing)
         {
             if (tool.WillMutate(Settings.ActiveAddPointMutationRate))
                 AddPoint(drawing);
@@ -95,7 +95,7 @@ namespace GenArt.AST
             Points.ForEach(p => p.Mutate(drawing));
         }
 
-        private void RemovePoint(DnaDrawing drawing)
+        private void RemovePoint(DnaVectorDrawing drawing)
         {
             if (Points.Count > Settings.ActivePointsPerPolygonMin)
             {
@@ -106,7 +106,7 @@ namespace GenArt.AST
             }
         }
 
-        private void AddPoint(DnaDrawing drawing)
+        private void AddPoint(DnaVectorDrawing drawing)
         {
             if (Points.Count < Settings.ActivePointsPerPolygonMax)
             {

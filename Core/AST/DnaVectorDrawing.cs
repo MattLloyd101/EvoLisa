@@ -3,11 +3,14 @@ using System.Xml.Serialization;
 using GenArt.Classes;
 using System;
 using GenArt.Core.AST;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Windows.Forms;
 
 namespace GenArt.AST
 {
     [Serializable]
-    public class DnaDrawing
+    public class DnaVectorDrawing : AbstractDnaDrawing
     {
         private Tools tool;
         private int seed;
@@ -21,12 +24,25 @@ namespace GenArt.AST
             IsDirty = true;
         }
 
-        public DnaDrawing(int seed)
+        public DnaVectorDrawing(int seed)
         {
             this.seed = seed;
             this.tool = new Tools(seed);
             Shapes = new List<DnaShape>();
             SetDirty();
+        }
+
+        public void Render(System.Drawing.Bitmap image, PaintEventArgs e, int scale)
+        {
+            using (Graphics backGraphics = Graphics.FromImage(image))
+            {
+                backGraphics.SmoothingMode = SmoothingMode.HighQuality;
+                foreach (DnaShape s in Shapes)
+                    s.Render(backGraphics, scale);
+
+                e.Graphics.DrawImage(image, 0, 0);
+            }
+
         }
 
         public void spawnLots(int n)
@@ -67,11 +83,11 @@ namespace GenArt.AST
             return svg;
         }
 
-        public DnaDrawing Clone()
+        public DnaVectorDrawing Clone()
         {
             lock (this)
             {
-                var drawing = new DnaDrawing(seed);
+                var drawing = new DnaVectorDrawing(seed);
                 drawing.tool = tool;
                 drawing.Shapes = new List<DnaShape>();
                 foreach (DnaShape shape in Shapes)
@@ -165,7 +181,7 @@ namespace GenArt.AST
             SetDirty();
         }
 
-        public void breed(DnaDrawing other)
+        public void breed(DnaVectorDrawing other)
         {
             lock (this)
             {

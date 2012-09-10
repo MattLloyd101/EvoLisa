@@ -26,7 +26,7 @@ namespace GenArt.Core.AST
             rotation = 0;
         }
 
-        override public void Mutate(DnaDrawing drawing)
+        override public void Mutate(DnaVectorDrawing drawing)
         {
             if (tool.WillMutate(Settings.ActiveCircleWidthMutationRate))
             {

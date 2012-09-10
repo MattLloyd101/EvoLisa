@@ -37,7 +37,7 @@ namespace GenArt.Classes
             catch (Exception ex) { ; }
         }
 
-        public static void Serialize(DnaDrawing drawing, string fileName)
+        public static void Serialize(DnaVectorDrawing drawing, string fileName)
         {
             if (fileName == null)
                 return;
@@ -60,7 +60,7 @@ namespace GenArt.Classes
             }
         }
 
-        public static void SerializeBinary(DnaDrawing drawing, string fileName)
+        public static void SerializeBinary(DnaVectorDrawing drawing, string fileName)
         {
             if (fileName == null)
                 return;
@@ -102,7 +102,7 @@ namespace GenArt.Classes
             return null;
         }
 
-        public static DnaDrawing DeserializeDnaDrawing(string fileName)
+        public static DnaVectorDrawing DeserializeDnaDrawing(string fileName)
         {
             if (!File.Exists(fileName))
                 return null;
@@ -111,10 +111,10 @@ namespace GenArt.Classes
             {
                 try
                 {
-                    XmlSerializer serializer = new XmlSerializer(typeof(DnaDrawing));
+                    XmlSerializer serializer = new XmlSerializer(typeof(DnaVectorDrawing));
                     using (FileStream reader = new FileStream(fileName, FileMode.Open))
                     {
-                        return (DnaDrawing)serializer.Deserialize(reader);
+                        return (DnaVectorDrawing)serializer.Deserialize(reader);
                     }
                 }
                 catch (Exception ex) { ; }
@@ -126,7 +126,7 @@ namespace GenArt.Classes
             }
         }
 
-        public static DnaDrawing DeserializeDnaDrawingBinary(string fileName)
+        public static DnaVectorDrawing DeserializeDnaDrawingBinary(string fileName)
         {
             if (!File.Exists(fileName))
                 return null;
@@ -136,7 +136,7 @@ namespace GenArt.Classes
                 BinaryFormatter formatter = new BinaryFormatter();
                 using (FileStream reader = new FileStream(fileName, FileMode.Open))
                 {
-                    return (DnaDrawing)formatter.Deserialize(reader);
+                    return (DnaVectorDrawing)formatter.Deserialize(reader);
                 }
             }
             catch (Exception ex) { ; }

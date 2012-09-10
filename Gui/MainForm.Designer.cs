@@ -38,10 +38,7 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sourceImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dNAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dNAToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.sVGToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pNGToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -146,54 +143,30 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.sourceImageToolStripMenuItem,
-            this.dNAToolStripMenuItem});
+            this.sourceImageToolStripMenuItem});
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem.Text = "Open";
             // 
             // sourceImageToolStripMenuItem
             // 
             this.sourceImageToolStripMenuItem.Name = "sourceImageToolStripMenuItem";
-            this.sourceImageToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.sourceImageToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.sourceImageToolStripMenuItem.Text = "Source Image";
             this.sourceImageToolStripMenuItem.Click += new System.EventHandler(this.sourceImageToolStripMenuItem_Click);
-            // 
-            // dNAToolStripMenuItem
-            // 
-            this.dNAToolStripMenuItem.Name = "dNAToolStripMenuItem";
-            this.dNAToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
-            this.dNAToolStripMenuItem.Text = "DNA";
-            this.dNAToolStripMenuItem.Click += new System.EventHandler(this.dNAToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.dNAToolStripMenuItem1,
-            this.sVGToolStripMenuItem,
             this.pNGToolStripMenuItem});
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveToolStripMenuItem.Text = "Save";
-            // 
-            // dNAToolStripMenuItem1
-            // 
-            this.dNAToolStripMenuItem1.Name = "dNAToolStripMenuItem1";
-            this.dNAToolStripMenuItem1.Size = new System.Drawing.Size(99, 22);
-            this.dNAToolStripMenuItem1.Text = "DNA";
-            this.dNAToolStripMenuItem1.Click += new System.EventHandler(this.dNAToolStripMenuItem1_Click);
-            // 
-            // sVGToolStripMenuItem
-            // 
-            this.sVGToolStripMenuItem.Name = "sVGToolStripMenuItem";
-            this.sVGToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
-            this.sVGToolStripMenuItem.Text = "SVG";
-            this.sVGToolStripMenuItem.Click += new System.EventHandler(this.sVGToolStripMenuItem1_Click);
             // 
             // pNGToolStripMenuItem
             // 
             this.pNGToolStripMenuItem.Name = "pNGToolStripMenuItem";
-            this.pNGToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
+            this.pNGToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.pNGToolStripMenuItem.Text = "PNG";
             this.pNGToolStripMenuItem.Click += new System.EventHandler(this.pNGToolStripMenuItem_Click);
             // 
@@ -502,9 +475,7 @@
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sourceImageToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem dNAToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem dNAToolStripMenuItem1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label8;
@@ -519,7 +490,6 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel5;
-        private System.Windows.Forms.ToolStripMenuItem sVGToolStripMenuItem;
         private System.Windows.Forms.CheckBox allowCircles;
         private System.Windows.Forms.CheckBox allowPolygons;
         private System.Windows.Forms.CheckBox allowEllipses;

@@ -26,7 +26,7 @@ namespace GenArt.AST
                        };
         }
 
-        public void Mutate(DnaDrawing drawing)
+        public void Mutate(DnaVectorDrawing drawing)
         {
             if (tool.WillMutate(Settings.ActiveMovePointMaxMutationRate))
             {

@@ -9,6 +9,7 @@ using GenArt.Classes;
 using System.IO;
 using GenArt.Core.Classes;
 using System.Collections.Generic;
+using GenArt.Core.AST;
 namespace GenArt
 {
     public partial class MainForm : Form
@@ -18,8 +19,8 @@ namespace GenArt
 
         public static Settings Settings;
 
-        private DnaDrawing currentDrawing;
-        private DnaDrawing guiDrawing;
+        private AbstractDnaDrawing currentDrawing;
+        private AbstractDnaDrawing guiDrawing;
         private DateTime lastRepaint = DateTime.MinValue;
 
         private int lastSelected;
@@ -89,7 +90,7 @@ namespace GenArt
 
             for (int i = Int32.Parse(seedTxtBox.Text); evolvers.Count < EVOLVER_COUNT; i++)
             {
-                Evolver evolver = new Evolver(i, (Pixel[])sourceColours.Clone());
+                Evolver evolver = new VectorEvolver(i, (Pixel[])sourceColours.Clone());
                 evolvers.Add(evolver);
             }
 
@@ -122,27 +123,30 @@ namespace GenArt
                 return;
             }
 
+            // TODO: this should be part of Evolver
             lock (evolver.evolverLock)
             {
                 currentDrawing = evolver.currentDrawing.Clone();
             }
+
             if (currentDrawing == null)
             {
                 Console.WriteLine("currentDrawing fail");
                 return;
             }
+
             String txt = String.Format("Current     : {0}\r\n", currIndex);
 
             for (int i = 0; i < EVOLVER_COUNT; i++)
             {
                 txt += String.Format("Evolver {0} : {1}\r\n", i, evolvers[i].errorLevel);
             }
+
             textBox1.Text = txt;
 
             toolStripStatusLabelFitness.Text = evolver.errorLevel.ToString();
             toolStripStatusLabelGeneration.Text = evolver.generation.ToString();
             toolStripStatusLabelSelected.Text = evolver.selected.ToString();
-            toolStripStatusLabelPolygons.Text = evolver.currentDrawing.Shapes.Count.ToString();
 
             if (EVOLVER_COUNT > 1)
             {
@@ -189,13 +193,8 @@ namespace GenArt
 
             using (Bitmap backBuffer = new Bitmap(trackBarScale.Value * picPattern.Width, trackBarScale.Value * picPattern.Height, PixelFormat.Format24bppRgb))
             {
-                using (Graphics backGraphics = Graphics.FromImage(backBuffer))
-                {
-                    backGraphics.SmoothingMode = SmoothingMode.HighQuality;
-                    Renderer.Render(guiDrawing, backGraphics, trackBarScale.Value);
+                guiDrawing.Render(backBuffer, e, trackBarScale.Value);
 
-                    e.Graphics.DrawImage(backBuffer, 0, 0);
-                }
             }
         }
 
@@ -226,42 +225,6 @@ namespace GenArt
             pnlCanvas.Width = trackBarScale.Value*picPattern.Width;
         }
 
-        private void OpenDNA()
-        {
-            Stop();
-
-            DnaDrawing drawing = Serializer.DeserializeDnaDrawing(FileUtil.GetOpenFileName(FileUtil.DnaExtension));
-            if (drawing != null)
-            {
-                lock (currentDrawing)
-                {
-                    currentDrawing = drawing;
-                    guiDrawing = currentDrawing.Clone();
-                }
-                pnlCanvas.Invalidate();
-                lastRepaint = DateTime.Now;
-            }
-        }
-
-        private void SaveSVG()
-        {
-            string fileName = FileUtil.GetSaveFileName(FileUtil.SVGExtension);
-            if (string.IsNullOrEmpty(fileName) == false && guiDrawing != null)
-            {
-                String svgTxt = null;
-                lock (guiDrawing)
-                {
-                    svgTxt = guiDrawing.toXML();
-                }
-                if (svgTxt != null)
-                {
-                    using(StreamWriter file = new StreamWriter(fileName)) {
-                        file.WriteLine(svgTxt);
-                    }
-                }
-            }
-        }
-
         private static ImageCodecInfo GetEncoderInfo(String mimeType)
         {
             int j;
@@ -286,21 +249,6 @@ namespace GenArt
             //}
         }
 
-        private void SaveDNA()
-        {
-            string fileName = FileUtil.GetSaveFileName(FileUtil.DnaExtension);
-            if (string.IsNullOrEmpty(fileName) == false && guiDrawing != null)
-            {
-                DnaDrawing clone = null;
-                lock (guiDrawing)
-                {
-                    clone = guiDrawing.Clone();
-                }
-                if (clone != null)
-                    Serializer.Serialize(clone, fileName);
-            }
-        }
-
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (settingsForm != null)
@@ -316,21 +264,6 @@ namespace GenArt
         private void sourceImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenImage();
-        }
-
-        private void dNAToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            OpenDNA();
-        }
-
-        private void dNAToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            SaveDNA();
-        }
-
-        private void sVGToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            SaveSVG();
         }
 
         private void trackBarScale_Scroll(object sender, EventArgs e)

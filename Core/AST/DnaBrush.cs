@@ -43,7 +43,7 @@ namespace GenArt.AST
             return "fill:#" + Red.ToString("X") + Green.ToString("X") + Blue.ToString("X") + ";fill-opacity:" + Alpha / 255.0;
         }
 
-        public void Mutate(DnaDrawing drawing)
+        public void Mutate(DnaVectorDrawing drawing)
         {
             if (tool.WillMutate(Settings.ActiveRedMutationRate))
             {

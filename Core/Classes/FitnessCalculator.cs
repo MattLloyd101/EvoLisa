@@ -30,7 +30,7 @@ namespace GenArt.Classes
             _bmp.Dispose();
         }
 
-        public double GetDrawingFitness(DnaDrawing newDrawing, Pixel[] sourcePixels)
+        public double GetDrawingFitness(DnaVectorDrawing newDrawing, Pixel[] sourcePixels)
         {
             double error = 0;
 

@@ -70,7 +70,7 @@ namespace GenArt.Core.AST
             return newCirc;
         }
 
-        public double mutateScalar(double scalar, double min,  double max, DnaDrawing drawing)
+        public double mutateScalar(double scalar, double min,  double max, DnaVectorDrawing drawing)
         {
             if (tool.WillMutate(Settings.ActiveCircleSizeMidMutationRate))
             {
@@ -91,7 +91,7 @@ namespace GenArt.Core.AST
             return scalar;
         }
 
-        virtual public void Mutate(DnaDrawing drawing)
+        virtual public void Mutate(DnaVectorDrawing drawing)
         {
             Console.WriteLine("Mutating Ellipse");
             if (tool.WillMutate(Settings.ActiveCircleWidthMutationRate))
@@ -114,7 +114,7 @@ namespace GenArt.Core.AST
             MutateOrigin(drawing);
         }
 
-        public void MutateOrigin(DnaDrawing drawing)
+        public void MutateOrigin(DnaVectorDrawing drawing)
         {
             if (tool.WillMutate(Settings.ActiveMovePointMaxMutationRate))
             {

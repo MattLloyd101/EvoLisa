@@ -4,21 +4,12 @@ using System.Drawing.Imaging;
 
 using GenArt.AST;
 using GenArt.Core.AST;
+using System.Windows.Forms;
 
 namespace GenArt.Classes
 {
     public static class Renderer
     {
-        //Render a Drawing
-        public static void Render(DnaDrawing drawing,Graphics g,int scale)
-        {
-            g.Clear(Color.Black);
-
-            foreach (DnaShape s in drawing.Shapes)
-                s.Render(g, scale);
-        }
-
-
 
         //Convert a list of DnaPoint to a list of System.Drawing.Point's
         public static Point[] GetGdiPoints(IList<DnaPoint> points,int scale)
