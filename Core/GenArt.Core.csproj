@@ -61,6 +61,7 @@
     </Compile>
     <Compile Include="AST\DnaShape.cs" />
     <Compile Include="AST\DnaTinyCircle.cs" />
+    <Compile Include="Classes\Evolver.cs" />
     <Compile Include="Classes\FileUtil.cs" />
     <Compile Include="Classes\FitnessCalculator.cs" />
     <Compile Include="Classes\Renderer.cs" />

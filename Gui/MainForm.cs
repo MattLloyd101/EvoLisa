@@ -7,28 +7,30 @@ using System.Windows.Forms;
 using GenArt.AST;
 using GenArt.Classes;
 using System.IO;
-
+using GenArt.Core.Classes;
+using System.Collections.Generic;
 namespace GenArt
 {
     public partial class MainForm : Form
     {
-        public static Settings Settings;
-        private DnaDrawing currentDrawing;
+        const int EVOLVER_COUNT = 2;
 
-        private double errorLevel = double.MaxValue;
-        private int generation;
+        public static Settings Settings;
+
+        private DnaDrawing currentDrawing;
         private DnaDrawing guiDrawing;
-        private bool isRunning;
         private DateTime lastRepaint = DateTime.MinValue;
+
         private int lastSelected;
         private TimeSpan repaintIntervall = new TimeSpan(0, 0, 0, 0, 0);
         private int repaintOnSelectedSteps = 3;
-        private int selected;
+
         private SettingsForm settingsForm;
 
-  
+        private List<Evolver> evolvers = new List<Evolver>();
 
-        private Thread thread;
+        Pixel[] sourceColours = null;
+  
 
         public MainForm()
         {
@@ -36,60 +38,6 @@ namespace GenArt
             Settings = Serializer.DeserializeSettings();
             if (Settings == null)
                 Settings = new Settings();
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private static DnaDrawing GetNewInitializedDrawing()
-        {
-
-            var drawing = new DnaDrawing();
-            drawing.Init();
-
-            return drawing;
-        }
-
-
-        private void StartEvolution()
-        {
-            Pixel[] sourceColors = SetupSourceColorMatrix(picPattern.Image as Bitmap);
-            DnaBrush.colours = sourceColors;
-
-            if (currentDrawing == null)
-                currentDrawing = GetNewInitializedDrawing();
-            lastSelected = 0;
-            NewFitnessCalculator calc = new NewFitnessCalculator();
-
-            while (isRunning)
-            {
-                DnaDrawing newDrawing;
-                lock (currentDrawing)
-                {
-                    newDrawing = currentDrawing.Clone();
-                }
-                newDrawing.Mutate();
-
-                if (newDrawing.IsDirty)
-                {
-                    generation++;
-
-                    double newErrorLevel = calc.GetDrawingFitness(newDrawing, sourceColors);
-
-                    if (newErrorLevel <= errorLevel)
-                    {
-                        selected++;
-                        lock (currentDrawing)
-                        {
-                            currentDrawing = newDrawing;
-                        }
-                        errorLevel = newErrorLevel;
-                    }
-                }
-                //else, discard new drawing
-            }
         }
 
         public static Pixel[] SetupSourceColorMatrix(Bitmap sourceImage)
@@ -117,9 +65,14 @@ namespace GenArt
             return sourcePixels;
         }
 
+        public bool isRunning
+        {
+            get { return evolvers.Count > 0 && evolvers.TrueForAll(evolver => evolver.isRunning); }
+        }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
+            Console.WriteLine("isRunning> " + isRunning);
             if (isRunning)
                 Stop();
             else
@@ -129,57 +82,70 @@ namespace GenArt
         private void Start()
         {
             btnStart.Text = "Stop";
-            isRunning = true;
             tmrRedraw.Enabled = true;
 
-            if (thread != null)
-                KillThread();
-
-            thread = new Thread(StartEvolution)
-                         {
-                             IsBackground = true,
-                             Priority = ThreadPriority.AboveNormal
-                         };
-
-            thread.Start();
-        }
-
-        private void KillThread()
-        {
-            if (thread != null)
+            for (; evolvers.Count < EVOLVER_COUNT;)
             {
-                thread.Abort();
+                Evolver evolver = new Evolver((Pixel[])sourceColours.Clone());
+                evolvers.Add(evolver);
             }
-            thread = null;
+
+            evolvers.ForEach(evolver => evolver.start());
         }
 
         private void Stop()
         {
-            if (isRunning)
-                KillThread();
+            evolvers.ForEach(evolver => evolver.stop());
 
             btnStart.Text = "Start";
-            isRunning = false;
             tmrRedraw.Enabled = false;
+        }
+
+        private Evolver currentEvolver
+        {
+            get
+            {
+                evolvers.Sort();
+                return evolvers[0];
+            }
         }
 
         private void tmrRedraw_Tick(object sender, EventArgs e)
         {
-            if (currentDrawing == null)
+            // select current;
+            Evolver evolver = currentEvolver;
+            if (evolver == null)
+            {
+                Console.WriteLine("evolver fail");
                 return;
+            }
 
-            int polygons = currentDrawing.Shapes.Count;
-            //int points = currentDrawing.PointCount;
-            //double avg = 0;
-            //if (polygons != 0)
-            //    avg = points/polygons;
+            lock (evolver.evolverLock)
+            {
+                currentDrawing = evolver.currentDrawing.Clone();
+            }
+            if (currentDrawing == null)
+            {
+                Console.WriteLine("currentDrawing fail");
+                return;
+            }
 
-            toolStripStatusLabelFitness.Text = errorLevel.ToString();
-            toolStripStatusLabelGeneration.Text = generation.ToString();
-            toolStripStatusLabelSelected.Text = selected.ToString();
-            //toolStripStatusLabelPoints.Text = points.ToString();
-            toolStripStatusLabelPolygons.Text = polygons.ToString();
-            //toolStripStatusLabelAvgPoints.Text = avg.ToString();
+            toolStripStatusLabelFitness.Text = evolver.errorLevel.ToString();
+            toolStripStatusLabelGeneration.Text = evolver.generation.ToString();
+            toolStripStatusLabelSelected.Text = evolver.selected.ToString();
+            toolStripStatusLabelPolygons.Text = evolver.currentDrawing.Shapes.Count.ToString();
+
+            if (EVOLVER_COUNT > 1)
+            {
+                Evolver e1 = evolvers.Find(ev => ev.readyToBreed);
+                if (e1 != null)
+                {
+                    Evolver e2 = evolvers.Find(ev => ev.readyToBreed && ev != e1);
+                    if(e2 != null)
+                        e1.breed(e2);
+
+                }
+            }
 
             bool shouldRepaint = false;
             if (repaintIntervall.Ticks > 0)
@@ -187,23 +153,18 @@ namespace GenArt
                     shouldRepaint = true;
 
             if (repaintOnSelectedSteps > 0)
-                if (lastSelected + repaintOnSelectedSteps < selected)
+                if (lastSelected + repaintOnSelectedSteps < evolver.selected)
                     shouldRepaint = true;
 
             if (shouldRepaint)
             {
-                lock (currentDrawing)
-                {
-                    guiDrawing = currentDrawing.Clone();
-                }
+                guiDrawing = currentDrawing;
                 pnlCanvas.Invalidate();
                 lastRepaint = DateTime.Now;
-                lastSelected = selected;
+                lastSelected = evolver.selected;
             }
         }
-
-        Bitmap backBuffer = null;
-        
+       
         private void pnlCanvas_Paint(object sender, PaintEventArgs e)
         {
             if (guiDrawing == null)
@@ -212,8 +173,7 @@ namespace GenArt
                 return;
             }
 
-
-            using (backBuffer = new Bitmap(trackBarScale.Value * picPattern.Width, trackBarScale.Value * picPattern.Height, PixelFormat.Format24bppRgb))
+            using (Bitmap backBuffer = new Bitmap(trackBarScale.Value * picPattern.Width, trackBarScale.Value * picPattern.Height, PixelFormat.Format24bppRgb))
             {
                 using (Graphics backGraphics = Graphics.FromImage(backBuffer))
                 {
@@ -241,6 +201,9 @@ namespace GenArt
             SetCanvasSize();
 
             splitContainer1.SplitterDistance = picPattern.Width + 30;
+
+            sourceColours = SetupSourceColorMatrix(picPattern.Image as Bitmap);
+            DnaBrush.colours = sourceColours;
         }
 
         private void SetCanvasSize()
@@ -256,9 +219,6 @@ namespace GenArt
             DnaDrawing drawing = Serializer.DeserializeDnaDrawing(FileUtil.GetOpenFileName(FileUtil.DnaExtension));
             if (drawing != null)
             {
-                if (currentDrawing == null)
-                    currentDrawing = GetNewInitializedDrawing();
-
                 lock (currentDrawing)
                 {
                     currentDrawing = drawing;
@@ -272,12 +232,12 @@ namespace GenArt
         private void SaveSVG()
         {
             string fileName = FileUtil.GetSaveFileName(FileUtil.SVGExtension);
-            if (string.IsNullOrEmpty(fileName) == false && currentDrawing != null)
+            if (string.IsNullOrEmpty(fileName) == false && guiDrawing != null)
             {
                 String svgTxt = null;
-                lock (currentDrawing)
+                lock (guiDrawing)
                 {
-                    svgTxt = currentDrawing.toXML();
+                    svgTxt = guiDrawing.toXML();
                 }
                 if (svgTxt != null)
                 {
@@ -315,12 +275,12 @@ namespace GenArt
         private void SaveDNA()
         {
             string fileName = FileUtil.GetSaveFileName(FileUtil.DnaExtension);
-            if (string.IsNullOrEmpty(fileName) == false && currentDrawing != null)
+            if (string.IsNullOrEmpty(fileName) == false && guiDrawing != null)
             {
                 DnaDrawing clone = null;
-                lock (currentDrawing)
+                lock (guiDrawing)
                 {
-                    clone = currentDrawing.Clone();
+                    clone = guiDrawing.Clone();
                 }
                 if (clone != null)
                     Serializer.Serialize(clone, fileName);
@@ -359,7 +319,6 @@ namespace GenArt
             SaveSVG();
         }
 
-
         private void trackBarScale_Scroll(object sender, EventArgs e)
         {
             SetCanvasSize();
@@ -380,11 +339,6 @@ namespace GenArt
             Settings.allowEllipses = allowEllipses.Checked;
         }
 
-        private void toolStripStatusLabel5_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void checkBox1_CheckedChanged_1(object sender, EventArgs e)
         {
             Settings.allowTinyCircles = onlyTiny.Checked;
@@ -395,11 +349,9 @@ namespace GenArt
             savePNG();
         }
 
-
-        private void add1K_Click(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
-            for (int i = 0; i < 1000; i++)
-                currentDrawing.AddTinyCircle();
+            DnaBrush.colours = sourceColours = SetupSourceColorMatrix(picPattern.Image as Bitmap);
         }
     }
 }

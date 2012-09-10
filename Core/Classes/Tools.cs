@@ -1,32 +1,43 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace GenArt.Classes
 {
-    public static class Tools
+    public class Tools
     {
-        public static readonly Random random = new Random();
+        public readonly Random random = new Random();
 
-        public static readonly int MaxPolygons = 250;
-
-        public static int GetRandomNumber(int min, int max)
+        public int GetRandomNumber(int min, int max)
         {
             return random.Next(min, max);
         }
 
-        public static double GetRandomNumber(double min, double max)
+        public double GetRandomNumber(double min, double max)
         {
             return min + random.NextDouble() * max;
         }
 
 
+
         public static int MaxWidth = 200;
         public static int MaxHeight = 200;
 
-        public static bool WillMutate(int mutationRate)
+        public bool WillMutate(int mutationRate)
         {
             if (GetRandomNumber(0, mutationRate) == 1)
                 return true;
             return false;
+        }
+
+        public void shuffle<T>(List<T> list)
+        {
+            for (int i = list.Count - 1; i > 0; i--)
+            {
+                int j = GetRandomNumber(0, i);
+                T tmp = list[j];
+                list[j] = list[i];
+                list[i] = list[j];
+            }
         }
     }
 }

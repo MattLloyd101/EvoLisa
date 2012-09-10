@@ -46,7 +46,6 @@
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.add1K = new System.Windows.Forms.Button();
             this.onlyTiny = new System.Windows.Forms.CheckBox();
             this.allowEllipses = new System.Windows.Forms.CheckBox();
             this.allowCircles = new System.Windows.Forms.CheckBox();
@@ -217,7 +216,6 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.add1K);
             this.splitContainer1.Panel1.Controls.Add(this.onlyTiny);
             this.splitContainer1.Panel1.Controls.Add(this.allowEllipses);
             this.splitContainer1.Panel1.Controls.Add(this.allowCircles);
@@ -237,16 +235,6 @@
             this.splitContainer1.Size = new System.Drawing.Size(1072, 625);
             this.splitContainer1.SplitterDistance = 230;
             this.splitContainer1.TabIndex = 21;
-            // 
-            // add1K
-            // 
-            this.add1K.Location = new System.Drawing.Point(12, 314);
-            this.add1K.Name = "add1K";
-            this.add1K.Size = new System.Drawing.Size(75, 23);
-            this.add1K.TabIndex = 29;
-            this.add1K.Text = "Add 1000 Tiny";
-            this.add1K.UseVisualStyleBackColor = true;
-            this.add1K.Click += new System.EventHandler(this.add1K_Click);
             // 
             // onlyTiny
             // 
@@ -408,7 +396,6 @@
             this.toolStripStatusLabel5.Name = "toolStripStatusLabel5";
             this.toolStripStatusLabel5.Size = new System.Drawing.Size(44, 17);
             this.toolStripStatusLabel5.Text = "Shapes";
-            this.toolStripStatusLabel5.Click += new System.EventHandler(this.toolStripStatusLabel5_Click);
             // 
             // toolStripStatusLabelPolygons
             // 
@@ -429,7 +416,7 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Genetic Vectorizer";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picPattern)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -484,7 +471,6 @@
         private System.Windows.Forms.CheckBox allowEllipses;
         private System.Windows.Forms.CheckBox onlyTiny;
         private System.Windows.Forms.ToolStripMenuItem pNGToolStripMenuItem;
-        private System.Windows.Forms.Button add1K;
     }
 }
 

@@ -9,6 +9,7 @@ namespace GenArt.AST
     [Serializable]
     public class DnaDrawing
     {
+        private Tools tool;
         public List<DnaShape> Shapes { get; set; }
 
         [XmlIgnore]
@@ -19,11 +20,10 @@ namespace GenArt.AST
             IsDirty = true;
         }
 
-        public void Init()
+        public DnaDrawing()
         {
+            this.tool = new Tools();
             Shapes = new List<DnaShape>();
-
-
             SetDirty();
         }
 
@@ -32,16 +32,16 @@ namespace GenArt.AST
 
             for (int i = 0; i < n; i++)
             {
-                if (Settings.allowPolygons && Tools.WillMutate(4))
+                if (Settings.allowPolygons && tool.WillMutate(4))
                     AddPolygon();
 
-                if (Settings.allowCircles && Tools.WillMutate(4))
+                if (Settings.allowCircles && tool.WillMutate(4))
                     AddCircle();
 
-                if (Settings.allowTinyCircles && Tools.WillMutate(4))
+                if (Settings.allowTinyCircles && tool.WillMutate(4))
                     AddTinyCircle();
 
-                if (Settings.allowEllipses && Tools.WillMutate(4))
+                if (Settings.allowEllipses && tool.WillMutate(4))
                     AddEllipse();
             }
         }
@@ -67,33 +67,37 @@ namespace GenArt.AST
 
         public DnaDrawing Clone()
         {
-            var drawing = new DnaDrawing();
-            drawing.Shapes = new List<DnaShape>();
-            foreach (DnaShape shape in Shapes)
-                drawing.Shapes.Add(shape.Clone());
+            lock (this)
+            {
+                var drawing = new DnaDrawing();
+                drawing.tool = tool;
+                drawing.Shapes = new List<DnaShape>();
+                foreach (DnaShape shape in Shapes)
+                    drawing.Shapes.Add(shape.Clone());
 
-            return drawing;
+                return drawing;
+            }
         }
 
 
-        public void Mutate()
+        public virtual void Mutate()
         {
-            if (Settings.allowPolygons && Tools.WillMutate(Settings.ActiveAddPolygonMutationRate))
+            if (Settings.allowPolygons && tool.WillMutate(Settings.ActiveAddPolygonMutationRate))
                 AddPolygon();
 
-            if (Settings.allowCircles && Tools.WillMutate(Settings.ActiveAddEllipseMutationRate))
+            if (Settings.allowCircles && tool.WillMutate(Settings.ActiveAddEllipseMutationRate))
                 AddCircle();
 
-            if (Settings.allowTinyCircles && Tools.WillMutate(Settings.ActiveAddTinyCircleMutationRate))
+            if (Settings.allowTinyCircles && tool.WillMutate(Settings.ActiveAddTinyCircleMutationRate))
                 AddTinyCircle();
-            
-            if (Settings.allowEllipses && Tools.WillMutate(Settings.ActiveAddEllipseMutationRate))
-                AddEllipse();
 
-            if (Tools.WillMutate(Settings.ActiveRemovePolygonMutationRate))
+            //if (Settings.allowEllipses && tool.WillMutate(Settings.ActiveAddEllipseMutationRate))
+                //AddEllipse();
+
+            if (tool.WillMutate(Settings.ActiveRemoveShapeMutationRate))
                 RemoveShape();
 
-            if (Tools.WillMutate(Settings.ActiveMovePolygonMutationRate))
+            if (tool.WillMutate(Settings.ActiveMovePolygonMutationRate))
                 MoveShape();
 
             foreach (DnaShape s in Shapes)
@@ -105,10 +109,10 @@ namespace GenArt.AST
             if (Shapes.Count < 1)
                 return;
 
-            int index = Tools.GetRandomNumber(0, Shapes.Count);
+            int index = tool.GetRandomNumber(0, Shapes.Count);
             DnaShape poly = Shapes[index];
             Shapes.RemoveAt(index);
-            index = Tools.GetRandomNumber(0, Shapes.Count);
+            index = tool.GetRandomNumber(0, Shapes.Count);
             Shapes.Insert(index, poly);
             SetDirty();
         }
@@ -117,7 +121,7 @@ namespace GenArt.AST
         {
             if (Shapes.Count > Settings.ActivePolygonsMin)
             {
-                int index = Tools.GetRandomNumber(0, Shapes.Count);
+                int index = tool.GetRandomNumber(0, Shapes.Count);
                 Shapes.RemoveAt(index);
                 SetDirty();
             }
@@ -125,7 +129,7 @@ namespace GenArt.AST
 
         public void AddEllipse()
         {
-            var newEllipse = new DnaEllipse();
+            var newEllipse = new DnaEllipse(tool);
             newEllipse.Init();
 
             Shapes.Add(newEllipse);
@@ -134,7 +138,7 @@ namespace GenArt.AST
 
         public void AddTinyCircle()
         {
-            var newCircle = new DnaTinyCircle();
+            var newCircle = new DnaTinyCircle(tool);
             newCircle.Init();
 
             Shapes.Add(newCircle);
@@ -143,7 +147,7 @@ namespace GenArt.AST
 
         public void AddCircle()
         {
-            var newCircle = new DnaCircle();
+            var newCircle = new DnaCircle(tool);
             newCircle.Init();
 
             Shapes.Add(newCircle);
@@ -152,11 +156,53 @@ namespace GenArt.AST
 
         public void AddPolygon()
         {
-            var newPolygon = new DnaPolygon();
+            var newPolygon = new DnaPolygon(tool);
             newPolygon.Init();
 
             Shapes.Add(newPolygon);
             SetDirty();
+        }
+
+        public void breed(DnaDrawing other)
+        {
+            lock (this)
+            {
+                lock (other)
+                {
+                    shuffleShapes();
+                    other.shuffleShapes();
+                    List<DnaShape> otherFirst = other.firstHalf;
+                    List<DnaShape> otherSnd = other.secondHalf;
+                    List<DnaShape> thisFirst = firstHalf;
+                    List<DnaShape> thisSnd = secondHalf;
+                    otherFirst.AddRange(thisSnd);
+                    thisFirst.AddRange(otherSnd);
+                    Shapes = thisFirst;
+                    other.Shapes = otherFirst;
+                }
+            }
+        }
+
+        private void shuffleShapes()
+        {
+            tool.shuffle(Shapes);
+        }
+
+        private List<DnaShape> firstHalf
+        {
+            get
+            {
+                return Shapes.GetRange(0, Shapes.Count / 2);
+            }
+        }
+
+        private List<DnaShape> secondHalf
+        {
+            get
+            {
+                int n = Shapes.Count / 2;
+                return Shapes.GetRange(n, Shapes.Count - n);
+            }
         }
     }
 }

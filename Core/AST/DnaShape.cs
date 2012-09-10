@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using GenArt.AST;
 using System.Drawing;
+using GenArt.Classes;
 
 namespace GenArt.Core.AST
 {
