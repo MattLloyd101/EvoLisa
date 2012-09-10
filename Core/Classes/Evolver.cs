@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GenArt.Core.AST;
 
 namespace GenArt.Core.Classes
 {
@@ -10,14 +11,20 @@ namespace GenArt.Core.Classes
 
         void breed(Evolver e2);
 
-        bool isRunning { get; set; }
+        void start();
 
-        object start();
+        void stop();
 
-        object stop();
+        bool readyToBreed { get; }
 
-        bool readyToBreed { get; set; }
+        int selected { get; }
 
-        int selected { get; set; }
+        int generation { get; }
+
+        double errorLevel { get; }
+
+        bool isRunning { get; }
+
+        AbstractDnaDrawing cloneDrawing();
     }
 }

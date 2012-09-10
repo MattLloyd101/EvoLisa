@@ -29,6 +29,7 @@ namespace GenArt.Classes
             return new SolidBrush(Color.FromArgb(b.Alpha, b.Red, b.Green, b.Blue));
         }
 
+
         
     }
 }

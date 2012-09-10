@@ -7,6 +7,7 @@ using GenArt.Classes;
 using System.Drawing.Imaging;
 using GenArt.AST;
 using System.Drawing;
+using GenArt.Core.AST;
 
 namespace GenArt.Core.Classes
 {
@@ -21,19 +22,39 @@ namespace GenArt.Core.Classes
             this.sourceColours = sourceColours;
         }
 
-        private Pixel[] sourceColours;
-        private Thread thread;
-        public Object evolverLock = new Object();
+        protected Pixel[] sourceColours;
+        protected Thread thread;
+        protected Object _evolverLock = new Object();
 
-        public volatile bool readyToBreed = false;
-        public volatile DnaVectorDrawing currentDrawing;
-        public volatile bool isRunning = false;
-        public volatile int lastSelected;
-        public volatile int selected;
-        public volatile int selectedThisGeneration;
-        public volatile int generation;
-        public double _errorLevel = double.MaxValue;
+        protected volatile bool _readyToBreed = false;
+        protected volatile DnaVectorDrawing _currentDrawing;
+        protected volatile bool _isRunning = false;
+        protected volatile int _selected;
+        protected volatile int _selectedThisGeneration;
+        protected volatile int _generation;
+        protected double _errorLevel = double.MaxValue;
+
         private int seed;
+
+        public int selected
+        {
+            get {return _selected; }
+        }
+
+        public int generation
+        {
+            get { return _generation; }
+        }
+
+        public bool isRunning
+        {
+            get { return _isRunning; }
+        }
+
+        public bool readyToBreed
+        {
+            get { return _readyToBreed; }
+        }
 
         public double errorLevel
         {
@@ -42,12 +63,12 @@ namespace GenArt.Core.Classes
 
         private bool metCompletionCritera
         {
-            get { return selectedThisGeneration >= SELECTED_MAX; }
+            get { return _selectedThisGeneration >= SELECTED_MAX; }
         }
 
         public double progress
         {
-            get { return selectedThisGeneration / (double)SELECTED_MAX; }
+            get { return _selectedThisGeneration / (double)SELECTED_MAX; }
         }
 
         private DnaVectorDrawing GetNewInitializedDrawing()
@@ -57,7 +78,15 @@ namespace GenArt.Core.Classes
             return drawing;
         }
 
-        public void breed(VectorEvolver other)
+        public AbstractDnaDrawing cloneDrawing()
+        {
+            lock (_evolverLock)
+            {
+                return _currentDrawing.Clone();
+            }
+        }
+
+        public void breed(Evolver other)
         {
             //Console.WriteLine("Breeding");
             //currentDrawing.breed(other.currentDrawing);
@@ -69,7 +98,7 @@ namespace GenArt.Core.Classes
 
         public void start()
         {
-            isRunning = true;
+            _isRunning = true;
             if (thread != null)
                 KillThread();
 
@@ -85,7 +114,7 @@ namespace GenArt.Core.Classes
 
         public void stop()
         {
-            isRunning = false;
+            _isRunning = false;
             KillThread();
         }
 
@@ -100,36 +129,35 @@ namespace GenArt.Core.Classes
 
         private void StartEvolution()
         {
-            if (currentDrawing == null)
-                currentDrawing = GetNewInitializedDrawing();
+            if (_currentDrawing == null)
+                _currentDrawing = GetNewInitializedDrawing();
 
-            lastSelected = 0;
             NewFitnessCalculator calc = new NewFitnessCalculator();
 
-            readyToBreed = false;
+            _readyToBreed = false;
 
-            while (isRunning)
+            while (_isRunning)
             {
                 DnaVectorDrawing newDrawing;
-                lock (currentDrawing)
+                lock (_currentDrawing)
                 {
-                    newDrawing = currentDrawing.Clone();
+                    newDrawing = _currentDrawing.Clone();
                 }
                 newDrawing.Mutate();
 
                 if (newDrawing.IsDirty)
                 {
-                    generation++;
+                    _generation++;
 
                     double newErrorLevel = calc.GetDrawingFitness(newDrawing, sourceColours);
 
                     if (newErrorLevel <= _errorLevel)
                     {
-                        selected++;
-                        selectedThisGeneration++;
-                        lock (currentDrawing)
+                        _selected++;
+                        _selectedThisGeneration++;
+                        lock (_currentDrawing)
                         {
-                            currentDrawing = newDrawing;
+                            _currentDrawing = newDrawing;
                         }
                         _errorLevel = newErrorLevel;
                     }
@@ -137,7 +165,7 @@ namespace GenArt.Core.Classes
 
                 if (metCompletionCritera)
                 {
-                    readyToBreed = true;
+                    _readyToBreed = true;
                 }
             }
         }

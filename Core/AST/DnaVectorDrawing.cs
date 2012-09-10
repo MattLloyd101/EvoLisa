@@ -39,8 +39,6 @@ namespace GenArt.AST
                 backGraphics.SmoothingMode = SmoothingMode.HighQuality;
                 foreach (DnaShape s in Shapes)
                     s.Render(backGraphics, scale);
-
-                e.Graphics.DrawImage(image, 0, 0);
             }
 
         }

@@ -123,11 +123,7 @@ namespace GenArt
                 return;
             }
 
-            // TODO: this should be part of Evolver
-            lock (evolver.evolverLock)
-            {
-                currentDrawing = evolver.currentDrawing.Clone();
-            }
+            currentDrawing = evolver.cloneDrawing();
 
             if (currentDrawing == null)
             {
@@ -194,7 +190,6 @@ namespace GenArt
             using (Bitmap backBuffer = new Bitmap(trackBarScale.Value * picPattern.Width, trackBarScale.Value * picPattern.Height, PixelFormat.Format24bppRgb))
             {
                 guiDrawing.Render(backBuffer, e, trackBarScale.Value);
-
             }
         }
 

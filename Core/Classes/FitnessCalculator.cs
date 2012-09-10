@@ -34,6 +34,11 @@ namespace GenArt.Classes
         {
             double error = 0;
 
+            using (Bitmap backBuffer = new Bitmap(trackBarScale.Value * picPattern.Width, trackBarScale.Value * picPattern.Height, PixelFormat.Format24bppRgb))
+            {
+                guiDrawing.Render(backBuffer, e, trackBarScale.Value);
+            }
+
             Renderer.Render(newDrawing, _g, 1);
 
             BitmapData bd = _bmp.LockBits(
