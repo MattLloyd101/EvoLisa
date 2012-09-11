@@ -2,6 +2,7 @@
 using System.Drawing.Imaging;
 using GenArt.AST;
 using System;
+using GenArt.Core.AST;
 
 namespace GenArt.Classes
 {  
@@ -30,16 +31,14 @@ namespace GenArt.Classes
             _bmp.Dispose();
         }
 
-        public double GetDrawingFitness(DnaVectorDrawing newDrawing, Pixel[] sourcePixels)
+        public double GetDrawingFitness(AbstractDnaDrawing newDrawing, Pixel[] sourcePixels)
         {
             double error = 0;
 
-            using (Bitmap backBuffer = new Bitmap(trackBarScale.Value * picPattern.Width, trackBarScale.Value * picPattern.Height, PixelFormat.Format24bppRgb))
-            {
-                guiDrawing.Render(backBuffer, e, trackBarScale.Value);
-            }
 
-            Renderer.Render(newDrawing, _g, 1);
+            newDrawing.Render(_g, 1);
+
+            //Renderer.Render(newDrawing, _g, 1);
 
             BitmapData bd = _bmp.LockBits(
                 new Rectangle(0, 0, Tools.MaxWidth, Tools.MaxHeight),

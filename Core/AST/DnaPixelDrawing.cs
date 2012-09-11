@@ -9,7 +9,7 @@ namespace GenArt.Core.AST
 {
     public class DnaPixelDrawing : AbstractDnaDrawing
     {
-        public void Render(Bitmap image, PaintEventArgs e, int scale)
+        public override void Render(Graphics image, int scale)
         {
 
         }

@@ -32,15 +32,11 @@ namespace GenArt.AST
             SetDirty();
         }
 
-        public void Render(System.Drawing.Bitmap image, PaintEventArgs e, int scale)
+        public override void Render(Graphics graphics, int scale)
         {
-            using (Graphics backGraphics = Graphics.FromImage(image))
-            {
-                backGraphics.SmoothingMode = SmoothingMode.HighQuality;
-                foreach (DnaShape s in Shapes)
-                    s.Render(backGraphics, scale);
-            }
-
+            graphics.SmoothingMode = SmoothingMode.HighQuality;
+            foreach (DnaShape s in Shapes)
+                s.Render(graphics, scale);
         }
 
         public void spawnLots(int n)

@@ -7,8 +7,16 @@ using System.Drawing;
 
 namespace GenArt.Core.AST
 {
-    public interface AbstractDnaDrawing
+    public abstract class AbstractDnaDrawing
     {
-        void Render(Bitmap image, PaintEventArgs e, int scale);
+        public void Render(Bitmap image, int scale)
+        {
+            using (Graphics backGraphics = Graphics.FromImage(image))
+            {
+                Render(backGraphics, scale);
+            }
+        }
+
+        public abstract void Render(Graphics graphics, int scale);
     }
 }

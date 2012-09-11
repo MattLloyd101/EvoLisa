@@ -189,7 +189,8 @@ namespace GenArt
 
             using (Bitmap backBuffer = new Bitmap(trackBarScale.Value * picPattern.Width, trackBarScale.Value * picPattern.Height, PixelFormat.Format24bppRgb))
             {
-                guiDrawing.Render(backBuffer, e, trackBarScale.Value);
+                guiDrawing.Render(backBuffer, trackBarScale.Value);
+                e.Graphics.DrawImage(backBuffer, 0, 0);
             }
         }
 
