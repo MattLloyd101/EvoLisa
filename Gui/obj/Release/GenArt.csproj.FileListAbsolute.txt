@@ -24,16 +24,3 @@ E:\workspace\EvoLisa\Gui\obj\Release\GenArt.Properties.Resources.resources
 E:\workspace\EvoLisa\Gui\obj\Release\GenArt.SettingsForm.resources
 E:\workspace\EvoLisa\Gui\obj\Release\GenerateResource.read.1.tlog
 E:\workspace\EvoLisa\Gui\obj\Release\GenerateResource.write.1.tlog
-C:\Users\matthewl\Documents\GitHub\EvoLisa\Gui\obj\Release\GenArt.exe
-C:\Users\matthewl\Documents\GitHub\EvoLisa\Gui\obj\Release\GenArt.pdb
-C:\Users\matthewl\Documents\GitHub\EvoLisa\Gui\obj\Release\ResolveAssemblyReference.cache
-C:\Users\matthewl\Documents\GitHub\EvoLisa\Gui\obj\Release\GenArt.Canvas.resources
-C:\Users\matthewl\Documents\GitHub\EvoLisa\Gui\obj\Release\GenArt.MainForm.resources
-C:\Users\matthewl\Documents\GitHub\EvoLisa\Gui\obj\Release\GenArt.Properties.Resources.resources
-C:\Users\matthewl\Documents\GitHub\EvoLisa\Gui\obj\Release\GenArt.SettingsForm.resources
-C:\Users\matthewl\Documents\GitHub\EvoLisa\Gui\obj\Release\GenerateResource.read.1.tlog
-C:\Users\matthewl\Documents\GitHub\EvoLisa\Gui\obj\Release\GenerateResource.write.1.tlog
-C:\Users\matthewl\Documents\GitHub\EvoLisa\Gui\bin\Release\GenArt.exe
-C:\Users\matthewl\Documents\GitHub\EvoLisa\Gui\bin\Release\GenArt.pdb
-C:\Users\matthewl\Documents\GitHub\EvoLisa\Gui\bin\Release\GenArt.Core.dll
-C:\Users\matthewl\Documents\GitHub\EvoLisa\Gui\bin\Release\GenArt.Core.pdb

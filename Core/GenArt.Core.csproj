@@ -45,16 +45,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AST\AbstractDnaDrawing.cs" />
     <Compile Include="AST\DnaBrush.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AST\DnaCircle.cs" />
     <Compile Include="AST\DnaEllipse.cs" />
-    <Compile Include="AST\DnaVectorDrawing.cs">
+    <Compile Include="AST\DnaDrawing.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AST\DnaPixelDrawing.cs" />
     <Compile Include="AST\DnaPoint.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -63,8 +61,6 @@
     </Compile>
     <Compile Include="AST\DnaShape.cs" />
     <Compile Include="AST\DnaTinyCircle.cs" />
-    <Compile Include="Classes\Evolver.cs" />
-    <Compile Include="Classes\VectorEvolver.cs" />
     <Compile Include="Classes\FileUtil.cs" />
     <Compile Include="Classes\FitnessCalculator.cs" />
     <Compile Include="Classes\Renderer.cs" />

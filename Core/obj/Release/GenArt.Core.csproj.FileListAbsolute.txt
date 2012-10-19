@@ -8,8 +8,3 @@ E:\workspace\EvoLisa\Core\bin\Release\GenArt.Core.pdb
 E:\workspace\EvoLisa\Core\obj\Release\ResolveAssemblyReference.cache
 E:\workspace\EvoLisa\Core\obj\Release\GenArt.Core.dll
 E:\workspace\EvoLisa\Core\obj\Release\GenArt.Core.pdb
-C:\Users\matthewl\Documents\GitHub\EvoLisa\Core\bin\Release\GenArt.Core.dll
-C:\Users\matthewl\Documents\GitHub\EvoLisa\Core\bin\Release\GenArt.Core.pdb
-C:\Users\matthewl\Documents\GitHub\EvoLisa\Core\obj\Release\ResolveAssemblyReference.cache
-C:\Users\matthewl\Documents\GitHub\EvoLisa\Core\obj\Release\GenArt.Core.dll
-C:\Users\matthewl\Documents\GitHub\EvoLisa\Core\obj\Release\GenArt.Core.pdb

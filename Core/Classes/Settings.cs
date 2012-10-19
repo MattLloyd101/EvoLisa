@@ -7,9 +7,9 @@
         public static bool allowTinyCircles = false;
         public static bool allowEllipses = false;
 
-        public static int ActiveAddEllipseMutationRate = 250;
+        public static int ActiveAddEllipseMutationRate = 700;
 
-        public static int ActiveAddTinyCircleMutationRate = 1500;
+        public static int ActiveAddTinyCircleMutationRate = 50;
 
         public static int ActiveCircleWidthMutationRate = 1500;
         public static int ActiveCircleHeightMutationRate = 1500;
@@ -17,18 +17,18 @@
         public static int ActiveCircleSizeMinMutationRate = 1500;
 
         public static int ActiveMaxCircleRadius = 150;
-        public static double ActiveCircleSizeRangeMid = 13;
+        public static double ActiveCircleSizeRangeMid = 23;
         public static double ActiveCircleSizeRangeMin = 3;
 
         public static int ActiveAddPointMutationRate = 1500;
-        public static int ActiveAddPolygonMutationRate = 1500;
-        public static int ActiveAlphaMutationRate = 1500;
+        public static int ActiveAddPolygonMutationRate = 700;
+        public static int ActiveAlphaMutationRate = 150;
         public static int ActiveAlphaRangeMax = 255;
         public static int ActiveAlphaRangeMin = 1;
-        public static int ActiveBlueMutationRate = 1500;
+        public static int ActiveBlueMutationRate = 150;
         public static int ActiveBlueRangeMax = 255;
         public static int ActiveBlueRangeMin = 0;
-        public static int ActiveGreenMutationRate = 1500;
+        public static int ActiveGreenMutationRate = 150;
         public static int ActiveGreenRangeMax = 255;
         public static int ActiveGreenRangeMin = 0;
         public static int ActiveMovePointMaxMutationRate = 1500;
@@ -37,16 +37,16 @@
 
         public static int ActiveMovePointRangeMid = 20;
         public static int ActiveMovePointRangeMin = 3;
-        public static int ActiveMovePolygonMutationRate = 1500;
+        public static int ActiveMovePolygonMutationRate = 700;
         public static int ActivePointsMin;
         public static int ActivePointsPerPolygonMax = 16;
         public static int ActivePointsPerPolygonMin = 3;
         public static int ActivePolygonsMin;
-        public static int ActiveRedMutationRate = 1500;
+        public static int ActiveRedMutationRate = 150;
         public static int ActiveRedRangeMax = 255;
         public static int ActiveRedRangeMin = 0;
         public static int ActiveRemovePointMutationRate = 1500;
-        public static int ActiveRemoveShapeMutationRate = 1500;
+        public static int ActiveRemovePolygonMutationRate = 1500;
         private int addPointMutationRate = 1500;
 
         //Mutation rates
@@ -363,7 +363,7 @@
         public void Activate()
         {
             ActiveAddPolygonMutationRate = AddPolygonMutationRate;
-            ActiveRemoveShapeMutationRate = RemovePolygonMutationRate;
+            ActiveRemovePolygonMutationRate = RemovePolygonMutationRate;
             ActiveMovePolygonMutationRate = MovePolygonMutationRate;
 
             ActiveAddPointMutationRate = AddPointMutationRate;
@@ -401,7 +401,7 @@
         public void Discard()
         {
             AddPolygonMutationRate = ActiveAddPolygonMutationRate;
-            RemovePolygonMutationRate = ActiveRemoveShapeMutationRate;
+            RemovePolygonMutationRate = ActiveRemovePolygonMutationRate;
             MovePolygonMutationRate = ActiveMovePolygonMutationRate;
 
             AddPointMutationRate = ActiveAddPointMutationRate;
@@ -439,7 +439,7 @@
         public void Reset()
         {
             ActiveAddPolygonMutationRate = 700;
-            ActiveRemoveShapeMutationRate = 1500;
+            ActiveRemovePolygonMutationRate = 1500;
             ActiveMovePolygonMutationRate = 700;
 
             ActiveAddPointMutationRate = 1500;

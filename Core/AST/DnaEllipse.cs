@@ -9,9 +9,8 @@ using System.Drawing;
 namespace GenArt.Core.AST
 {
     [Serializable]
-    public class DnaEllipse : DnaShape
+    class DnaEllipse : DnaShape
     {
-        public Tools tool;
         public DnaBrush Brush { get; set; }
 
         public DnaPoint origin { get; set; }
@@ -20,10 +19,6 @@ namespace GenArt.Core.AST
 
         public double rotation { get; set; }
 
-        public DnaEllipse(Tools tool)
-        {
-            this.tool = tool;
-        }
 
         public int maxX()
         {
@@ -35,33 +30,33 @@ namespace GenArt.Core.AST
             return origin.Y + (int)ry;
         }
 
-        public virtual void Init()
+        public void Init()
         {
-            
             origin = new DnaPoint();
-            origin.Init(tool);
+            origin.Init();
 
             Brush = new DnaBrush();
-            Brush.Init(tool);
+            Brush.Init();
 
-            rx = tool.GetRandomNumber(0, Settings.ActiveMaxCircleRadius);
-            ry = tool.GetRandomNumber(0, Settings.ActiveMaxCircleRadius);
-            rotation = tool.GetRandomNumber(-99.0, 99.0);
+            rx = Tools.GetRandomNumber(0, Settings.ActiveMaxCircleRadius);
+            ry = Tools.GetRandomNumber(0, Settings.ActiveMaxCircleRadius);
+            rotation = Tools.GetRandomNumber(-99.0, 99.0);
         }
 
         public string toXML()
         {
             String xml = "";
-            //float rad2deg = 57.2957795f;
+            float rad2deg = 57.2957795f;
 
             xml += "<ellipse cx=\"" + (rx/4 + origin.X) + "\" cy=\"" + (ry/4 + origin.Y) + "\" rx=\"" + rx/2 + "\" ry=\"" + ry/2 + "\" style=\"" + Brush.getBrushString() + "\"/>";
+
             
             return xml;
         }
 
-        public virtual DnaShape Clone()
+        public DnaShape Clone()
         {
-            var newCirc = new DnaEllipse(tool);
+            var newCirc = new DnaEllipse();
             newCirc.origin = origin.Clone();
             newCirc.Brush = Brush.Clone();
             newCirc.rx = rx;
@@ -70,41 +65,40 @@ namespace GenArt.Core.AST
             return newCirc;
         }
 
-        public double mutateScalar(double scalar, double min,  double max, DnaVectorDrawing drawing)
+        public double mutateScalar(double scalar, double min,  double max, DnaDrawing drawing)
         {
-            if (tool.WillMutate(Settings.ActiveCircleSizeMidMutationRate))
+            if (Tools.WillMutate(Settings.ActiveCircleSizeMidMutationRate))
             {
                 drawing.SetDirty();
                 return Math.Min(Math.Max(min, scalar +
-                                    tool.GetRandomNumber(-Settings.ActiveCircleSizeRangeMid,
+                                    Tools.GetRandomNumber(-Settings.ActiveCircleSizeRangeMid,
                                                            Settings.ActiveCircleSizeRangeMid)), max);
             }
 
-            if (tool.WillMutate(Settings.ActiveCircleSizeMinMutationRate))
+            if (Tools.WillMutate(Settings.ActiveCircleSizeMinMutationRate))
             {
                 drawing.SetDirty();
                 return Math.Min(Math.Max(min, scalar +
-                                 tool.GetRandomNumber(-Settings.ActiveCircleSizeRangeMin,
+                                 Tools.GetRandomNumber(-Settings.ActiveCircleSizeRangeMin,
                                                        Settings.ActiveCircleSizeRangeMin)), max);
             }
 
             return scalar;
         }
 
-        virtual public void Mutate(DnaVectorDrawing drawing)
+        public void Mutate(DnaDrawing drawing)
         {
-            Console.WriteLine("Mutating Ellipse");
-            if (tool.WillMutate(Settings.ActiveCircleWidthMutationRate))
+            if (Tools.WillMutate(Settings.ActiveCircleWidthMutationRate))
             {
                 rx = mutateScalar(rx, 0, Settings.ActiveMaxCircleRadius, drawing);
             }
 
-            if (tool.WillMutate(Settings.ActiveCircleHeightMutationRate))
+            if (Tools.WillMutate(Settings.ActiveCircleHeightMutationRate))
             {
                 ry = mutateScalar(ry, 0, Settings.ActiveMaxCircleRadius, drawing);
             }
 
-            if (tool.WillMutate(Settings.ActiveRotationMutationRate))
+            if (Tools.WillMutate(Settings.ActiveRotationMutationRate))
             {
                 rotation = mutateScalar(rotation, -999.0, 999.0, drawing);
             }
@@ -114,45 +108,45 @@ namespace GenArt.Core.AST
             MutateOrigin(drawing);
         }
 
-        public void MutateOrigin(DnaVectorDrawing drawing)
+        public void MutateOrigin(DnaDrawing drawing)
         {
-            if (tool.WillMutate(Settings.ActiveMovePointMaxMutationRate))
+            if (Tools.WillMutate(Settings.ActiveMovePointMaxMutationRate))
             {
-                origin.X = tool.GetRandomNumber(-Settings.ActiveMaxCircleRadius, Tools.MaxWidth + Settings.ActiveMaxCircleRadius);
-                origin.Y = tool.GetRandomNumber(-Settings.ActiveMaxCircleRadius, Tools.MaxHeight + Settings.ActiveMaxCircleRadius);
+                origin.X = Tools.GetRandomNumber(-Settings.ActiveMaxCircleRadius, Tools.MaxWidth + Settings.ActiveMaxCircleRadius);
+                origin.Y = Tools.GetRandomNumber(-Settings.ActiveMaxCircleRadius, Tools.MaxHeight + Settings.ActiveMaxCircleRadius);
                 drawing.SetDirty();
             }
 
-            if (tool.WillMutate(Settings.ActiveMovePointMidMutationRate))
+            if (Tools.WillMutate(Settings.ActiveMovePointMidMutationRate))
             {
                 origin.X =
                     Math.Min(
                         Math.Max(-Settings.ActiveMaxCircleRadius,
                                  origin.X +
-                                 tool.GetRandomNumber(-Settings.ActiveMovePointRangeMid,
+                                 Tools.GetRandomNumber(-Settings.ActiveMovePointRangeMid,
                                                        Settings.ActiveMovePointRangeMid)), Tools.MaxWidth + Settings.ActiveMaxCircleRadius);
                 origin.Y =
                     Math.Min(
                         Math.Max(-Settings.ActiveMaxCircleRadius,
                                  origin.Y +
-                                 tool.GetRandomNumber(-Settings.ActiveMovePointRangeMid,
+                                 Tools.GetRandomNumber(-Settings.ActiveMovePointRangeMid,
                                                        Settings.ActiveMovePointRangeMid)), Tools.MaxHeight + Settings.ActiveMaxCircleRadius);
                 drawing.SetDirty();
             }
 
-            if (tool.WillMutate(Settings.ActiveMovePointMinMutationRate))
+            if (Tools.WillMutate(Settings.ActiveMovePointMinMutationRate))
             {
                 origin.X =
                     Math.Min(
                         Math.Max(-Settings.ActiveMaxCircleRadius,
                                  origin.X +
-                                 tool.GetRandomNumber(-Settings.ActiveMovePointRangeMin,
+                                 Tools.GetRandomNumber(-Settings.ActiveMovePointRangeMin,
                                                        Settings.ActiveMovePointRangeMin)), Tools.MaxWidth + Settings.ActiveMaxCircleRadius);
                 origin.Y =
                     Math.Min(
                         Math.Max(-Settings.ActiveMaxCircleRadius,
                                  origin.Y +
-                                 tool.GetRandomNumber(-Settings.ActiveMovePointRangeMin,
+                                 Tools.GetRandomNumber(-Settings.ActiveMovePointRangeMin,
                                                        Settings.ActiveMovePointRangeMin)), Tools.MaxHeight + Settings.ActiveMaxCircleRadius);
                 drawing.SetDirty();
             }

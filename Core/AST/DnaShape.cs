@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using GenArt.AST;
 using System.Drawing;
-using GenArt.Classes;
 
 namespace GenArt.Core.AST
 {
@@ -19,7 +18,7 @@ namespace GenArt.Core.AST
 
         DnaShape Clone();
 
-        void Mutate(DnaVectorDrawing drawing);
+        void Mutate(DnaDrawing drawing);
 
         void Render(Graphics g, int scale);
     }

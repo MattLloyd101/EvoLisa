@@ -9,23 +9,19 @@ namespace GenArt.Core.AST
 {
     class DnaTinyCircle : DnaCircle
     {
-        public DnaTinyCircle(Tools tool) : base(tool)
-        {
-        }
-
         new public void Init()
         {
             origin = new DnaPoint();
-            origin.Init(tool);
+            origin.Init();
 
             Brush = new DnaBrush();
-            Brush.Init(tool);
+            Brush.Init();
 
-            rx = ry = tool.GetRandomNumber(0.0, 5.0);
+            rx = ry = Tools.GetRandomNumber(0.0, 5.0);
             rotation = 0;
         }
 
-        new public void Mutate(DnaVectorDrawing drawing)
+        new public void Mutate(DnaDrawing drawing)
         {
             Brush.Mutate(drawing);
 

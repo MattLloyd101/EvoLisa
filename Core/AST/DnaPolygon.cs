@@ -11,12 +11,6 @@ namespace GenArt.AST
     {
         public List<DnaPoint> Points { get; set; }
         public DnaBrush Brush { get; set; }
-        private Tools tool;
-
-        public DnaPolygon(Tools tool)
-        {
-            this.tool = tool;
-        }
 
         public void Init()
         {
@@ -24,19 +18,19 @@ namespace GenArt.AST
 
             //int count = Tools.GetRandomNumber(3, 3);
             var origin = new DnaPoint();
-            origin.Init(tool);
+            origin.Init();
 
             for (int i = 0; i < Settings.ActivePointsPerPolygonMin; i++)
             {
                 var point = new DnaPoint();
-                point.X = Math.Min(Math.Max(0, origin.X + tool.GetRandomNumber(-3, 3)), Tools.MaxWidth);
-                point.Y = Math.Min(Math.Max(0, origin.Y + tool.GetRandomNumber(-3, 3)), Tools.MaxHeight);
+                point.X = Math.Min(Math.Max(0, origin.X + Tools.GetRandomNumber(-3, 3)), Tools.MaxWidth);
+                point.Y = Math.Min(Math.Max(0, origin.Y + Tools.GetRandomNumber(-3, 3)), Tools.MaxHeight);
 
                 Points.Add(point);
             }
 
             Brush = new DnaBrush();
-            Brush.Init(tool);
+            Brush.Init();
         }
 
         public int maxX()
@@ -74,7 +68,7 @@ namespace GenArt.AST
 
         public DnaShape Clone()
         {
-            var newPolygon = new DnaPolygon(tool);
+            var newPolygon = new DnaPolygon();
             newPolygon.Points = new List<DnaPoint>();
             newPolygon.Brush = Brush.Clone();
             foreach (DnaPoint point in Points)
@@ -83,36 +77,36 @@ namespace GenArt.AST
             return newPolygon;
         }
 
-        public void Mutate(DnaVectorDrawing drawing)
+        public void Mutate(DnaDrawing drawing)
         {
-            if (tool.WillMutate(Settings.ActiveAddPointMutationRate))
+            if (Tools.WillMutate(Settings.ActiveAddPointMutationRate))
                 AddPoint(drawing);
 
-            if (tool.WillMutate(Settings.ActiveRemovePointMutationRate))
+            if (Tools.WillMutate(Settings.ActiveRemovePointMutationRate))
                 RemovePoint(drawing);
 
             Brush.Mutate(drawing);
             Points.ForEach(p => p.Mutate(drawing));
         }
 
-        private void RemovePoint(DnaVectorDrawing drawing)
+        private void RemovePoint(DnaDrawing drawing)
         {
             if (Points.Count > Settings.ActivePointsPerPolygonMin)
             {
-                int index = tool.GetRandomNumber(0, Points.Count);
+                int index = Tools.GetRandomNumber(0, Points.Count);
                 Points.RemoveAt(index);
 
                 drawing.SetDirty();
             }
         }
 
-        private void AddPoint(DnaVectorDrawing drawing)
+        private void AddPoint(DnaDrawing drawing)
         {
             if (Points.Count < Settings.ActivePointsPerPolygonMax)
             {
                 var newPoint = new DnaPoint();
 
-                int index = tool.GetRandomNumber(1, Points.Count - 1);
+                int index = Tools.GetRandomNumber(1, Points.Count - 1);
 
                 DnaPoint prev = Points[index - 1];
                 DnaPoint next = Points[index];

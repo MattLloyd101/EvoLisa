@@ -2,7 +2,6 @@
 using System.Drawing.Imaging;
 using GenArt.AST;
 using System;
-using GenArt.Core.AST;
 
 namespace GenArt.Classes
 {  
@@ -31,14 +30,13 @@ namespace GenArt.Classes
             _bmp.Dispose();
         }
 
-        public double GetDrawingFitness(AbstractDnaDrawing newDrawing, Pixel[] sourcePixels)
+        
+
+        public double GetDrawingFitness(DnaDrawing newDrawing, Pixel[] sourcePixels)
         {
             double error = 0;
 
-
-            newDrawing.Render(_g, 1);
-
-            //Renderer.Render(newDrawing, _g, 1);
+            Renderer.Render(newDrawing, _g, 1);
 
             BitmapData bd = _bmp.LockBits(
                 new Rectangle(0, 0, Tools.MaxWidth, Tools.MaxHeight),

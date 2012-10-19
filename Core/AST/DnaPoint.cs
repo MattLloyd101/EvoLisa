@@ -9,12 +9,10 @@ namespace GenArt.AST
         public int X { get; set; }
         public int Y { get; set; }
 
-        private Tools tool;
-        public void Init(Tools tool)
+        public void Init()
         {
-            this.tool = tool;
-            X = tool.GetRandomNumber(0, Tools.MaxWidth);
-            Y = tool.GetRandomNumber(0, Tools.MaxHeight);
+            X = Tools.GetRandomNumber(0, Tools.MaxWidth);
+            Y = Tools.GetRandomNumber(0, Tools.MaxHeight);
         }
 
         public DnaPoint Clone()
@@ -26,45 +24,45 @@ namespace GenArt.AST
                        };
         }
 
-        public void Mutate(DnaVectorDrawing drawing)
+        public void Mutate(DnaDrawing drawing)
         {
-            if (tool.WillMutate(Settings.ActiveMovePointMaxMutationRate))
+            if (Tools.WillMutate(Settings.ActiveMovePointMaxMutationRate))
             {
-                X = tool.GetRandomNumber(0, Tools.MaxWidth);
-                Y = tool.GetRandomNumber(0, Tools.MaxHeight);
+                X = Tools.GetRandomNumber(0, Tools.MaxWidth);
+                Y = Tools.GetRandomNumber(0, Tools.MaxHeight);
                 drawing.SetDirty();
             }
 
-            if (tool.WillMutate(Settings.ActiveMovePointMidMutationRate))
+            if (Tools.WillMutate(Settings.ActiveMovePointMidMutationRate))
             {
                 X =
                     Math.Min(
                         Math.Max(0,
                                  X +
-                                 tool.GetRandomNumber(-Settings.ActiveMovePointRangeMid,
+                                 Tools.GetRandomNumber(-Settings.ActiveMovePointRangeMid,
                                                        Settings.ActiveMovePointRangeMid)), Tools.MaxWidth);
                 Y =
                     Math.Min(
                         Math.Max(0,
                                  Y +
-                                 tool.GetRandomNumber(-Settings.ActiveMovePointRangeMid,
+                                 Tools.GetRandomNumber(-Settings.ActiveMovePointRangeMid,
                                                        Settings.ActiveMovePointRangeMid)), Tools.MaxHeight);
                 drawing.SetDirty();
             }
 
-            if (tool.WillMutate(Settings.ActiveMovePointMinMutationRate))
+            if (Tools.WillMutate(Settings.ActiveMovePointMinMutationRate))
             {
                 X =
                     Math.Min(
                         Math.Max(0,
                                  X +
-                                 tool.GetRandomNumber(-Settings.ActiveMovePointRangeMin,
+                                 Tools.GetRandomNumber(-Settings.ActiveMovePointRangeMin,
                                                        Settings.ActiveMovePointRangeMin)), Tools.MaxWidth);
                 Y =
                     Math.Min(
                         Math.Max(0,
                                  Y +
-                                 tool.GetRandomNumber(-Settings.ActiveMovePointRangeMin,
+                                 Tools.GetRandomNumber(-Settings.ActiveMovePointRangeMin,
                                                        Settings.ActiveMovePointRangeMin)), Tools.MaxHeight);
                 drawing.SetDirty();
             }

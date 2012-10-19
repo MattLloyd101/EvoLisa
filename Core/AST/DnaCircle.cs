@@ -7,28 +7,24 @@ using GenArt.Classes;
 
 namespace GenArt.Core.AST
 {
-    public class DnaCircle : DnaEllipse
+    class DnaCircle : DnaEllipse
     {
 
-        public DnaCircle(Tools tool) : base(tool)
-        {
-        }
-
-        override public void Init()
+        new public void Init()
         {
             origin = new DnaPoint();
-            origin.Init(tool);
+            origin.Init();
 
             Brush = new DnaBrush();
-            Brush.Init(tool);
+            Brush.Init();
 
-            rx = ry = tool.GetRandomNumber(0, Settings.ActiveMaxCircleRadius);
+            rx = ry = Tools.GetRandomNumber(0, Settings.ActiveMaxCircleRadius);
             rotation = 0;
         }
 
-        override public void Mutate(DnaVectorDrawing drawing)
+        new public void Mutate(DnaDrawing drawing)
         {
-            if (tool.WillMutate(Settings.ActiveCircleWidthMutationRate))
+            if (Tools.WillMutate(Settings.ActiveCircleWidthMutationRate))
             {
                 rx = ry = mutateScalar(rx, 0, Settings.ActiveMaxCircleRadius, drawing);
             }
@@ -36,17 +32,6 @@ namespace GenArt.Core.AST
             Brush.Mutate(drawing);
 
             MutateOrigin(drawing);
-        }
-
-        override public DnaShape Clone()
-        {
-            var newCirc = new DnaCircle(tool);
-            newCirc.origin = origin.Clone();
-            newCirc.Brush = Brush.Clone();
-            newCirc.rx = rx;
-            newCirc.ry = ry;
-
-            return newCirc;
         }
     }
 }

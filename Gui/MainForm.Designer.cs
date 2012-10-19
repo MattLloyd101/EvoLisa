@@ -38,16 +38,15 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sourceImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dNAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dNAToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.sVGToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pNGToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.label3 = new System.Windows.Forms.Label();
-            this.seedTxtBox = new System.Windows.Forms.TextBox();
-            this.btnPrev = new System.Windows.Forms.Button();
-            this.btnNext = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.add1K = new System.Windows.Forms.Button();
             this.onlyTiny = new System.Windows.Forms.CheckBox();
             this.allowEllipses = new System.Windows.Forms.CheckBox();
             this.allowCircles = new System.Windows.Forms.CheckBox();
@@ -143,7 +142,8 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.sourceImageToolStripMenuItem});
+            this.sourceImageToolStripMenuItem,
+            this.dNAToolStripMenuItem});
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.openToolStripMenuItem.Text = "Open";
@@ -155,18 +155,41 @@
             this.sourceImageToolStripMenuItem.Text = "Source Image";
             this.sourceImageToolStripMenuItem.Click += new System.EventHandler(this.sourceImageToolStripMenuItem_Click);
             // 
+            // dNAToolStripMenuItem
+            // 
+            this.dNAToolStripMenuItem.Name = "dNAToolStripMenuItem";
+            this.dNAToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.dNAToolStripMenuItem.Text = "DNA";
+            this.dNAToolStripMenuItem.Click += new System.EventHandler(this.dNAToolStripMenuItem_Click);
+            // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.dNAToolStripMenuItem1,
+            this.sVGToolStripMenuItem,
             this.pNGToolStripMenuItem});
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.saveToolStripMenuItem.Text = "Save";
             // 
+            // dNAToolStripMenuItem1
+            // 
+            this.dNAToolStripMenuItem1.Name = "dNAToolStripMenuItem1";
+            this.dNAToolStripMenuItem1.Size = new System.Drawing.Size(99, 22);
+            this.dNAToolStripMenuItem1.Text = "DNA";
+            this.dNAToolStripMenuItem1.Click += new System.EventHandler(this.dNAToolStripMenuItem1_Click);
+            // 
+            // sVGToolStripMenuItem
+            // 
+            this.sVGToolStripMenuItem.Name = "sVGToolStripMenuItem";
+            this.sVGToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
+            this.sVGToolStripMenuItem.Text = "SVG";
+            this.sVGToolStripMenuItem.Click += new System.EventHandler(this.sVGToolStripMenuItem1_Click);
+            // 
             // pNGToolStripMenuItem
             // 
             this.pNGToolStripMenuItem.Name = "pNGToolStripMenuItem";
-            this.pNGToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+            this.pNGToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
             this.pNGToolStripMenuItem.Text = "PNG";
             this.pNGToolStripMenuItem.Click += new System.EventHandler(this.pNGToolStripMenuItem_Click);
             // 
@@ -194,11 +217,7 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.label3);
-            this.splitContainer1.Panel1.Controls.Add(this.seedTxtBox);
-            this.splitContainer1.Panel1.Controls.Add(this.btnPrev);
-            this.splitContainer1.Panel1.Controls.Add(this.btnNext);
-            this.splitContainer1.Panel1.Controls.Add(this.textBox1);
+            this.splitContainer1.Panel1.Controls.Add(this.add1K);
             this.splitContainer1.Panel1.Controls.Add(this.onlyTiny);
             this.splitContainer1.Panel1.Controls.Add(this.allowEllipses);
             this.splitContainer1.Panel1.Controls.Add(this.allowCircles);
@@ -219,49 +238,15 @@
             this.splitContainer1.SplitterDistance = 230;
             this.splitContainer1.TabIndex = 21;
             // 
-            // label3
+            // add1K
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(9, 317);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(32, 13);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "Seed";
-            // 
-            // seedTxtBox
-            // 
-            this.seedTxtBox.Location = new System.Drawing.Point(47, 314);
-            this.seedTxtBox.Name = "seedTxtBox";
-            this.seedTxtBox.Size = new System.Drawing.Size(164, 20);
-            this.seedTxtBox.TabIndex = 32;
-            // 
-            // btnPrev
-            // 
-            this.btnPrev.Location = new System.Drawing.Point(136, 245);
-            this.btnPrev.Name = "btnPrev";
-            this.btnPrev.Size = new System.Drawing.Size(75, 23);
-            this.btnPrev.TabIndex = 31;
-            this.btnPrev.Text = "Prev Image";
-            this.btnPrev.UseVisualStyleBackColor = true;
-            this.btnPrev.Click += new System.EventHandler(this.btnPrev_Click);
-            // 
-            // btnNext
-            // 
-            this.btnNext.Location = new System.Drawing.Point(136, 222);
-            this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(75, 23);
-            this.btnNext.TabIndex = 30;
-            this.btnNext.Text = "Next Image";
-            this.btnNext.UseVisualStyleBackColor = true;
-            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(12, 340);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(200, 183);
-            this.textBox1.TabIndex = 29;
+            this.add1K.Location = new System.Drawing.Point(12, 314);
+            this.add1K.Name = "add1K";
+            this.add1K.Size = new System.Drawing.Size(75, 23);
+            this.add1K.TabIndex = 29;
+            this.add1K.Text = "Add 1000 Tiny";
+            this.add1K.UseVisualStyleBackColor = true;
+            this.add1K.Click += new System.EventHandler(this.add1K_Click);
             // 
             // onlyTiny
             // 
@@ -423,6 +408,7 @@
             this.toolStripStatusLabel5.Name = "toolStripStatusLabel5";
             this.toolStripStatusLabel5.Size = new System.Drawing.Size(44, 17);
             this.toolStripStatusLabel5.Text = "Shapes";
+            this.toolStripStatusLabel5.Click += new System.EventHandler(this.toolStripStatusLabel5_Click);
             // 
             // toolStripStatusLabelPolygons
             // 
@@ -443,7 +429,7 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Genetic Vectorizer";
-            this.Load += new System.EventHandler(this.MainForm_Load);
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picPattern)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -475,7 +461,9 @@
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sourceImageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dNAToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dNAToolStripMenuItem1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label8;
@@ -490,16 +478,13 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel5;
+        private System.Windows.Forms.ToolStripMenuItem sVGToolStripMenuItem;
         private System.Windows.Forms.CheckBox allowCircles;
         private System.Windows.Forms.CheckBox allowPolygons;
         private System.Windows.Forms.CheckBox allowEllipses;
         private System.Windows.Forms.CheckBox onlyTiny;
         private System.Windows.Forms.ToolStripMenuItem pNGToolStripMenuItem;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button btnPrev;
-        private System.Windows.Forms.Button btnNext;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox seedTxtBox;
+        private System.Windows.Forms.Button add1K;
     }
 }
 
